@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CryptoPlace</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
+    <script src="{{ asset('js/api.js') }}" buffer></script>
+    </head>
 <body class="bg-gradient-to-b from-purple-900 to-indigo-900 text-white min-h-screen flex flex-col justify-between">
 
     <!-- Header -->
@@ -31,7 +32,7 @@
         <p class="mt-4 text-base md:text-lg">Welcome to the world's largest cryptoCurrency Market Place.<br> Sign up to explore more Crypto Currency.</p>
 
         <div class="mt-8 flex justify-center">
-            <input type="text" placeholder="Search crypto..." class="px-4 py-2 w-full max-w-sm text-black rounded-l">
+            <input type="text" id="searchInput" placeholder="Search crypto..." class="px-4 py-2 w-full max-w-sm text-black rounded-l">
             <button class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded-r">Search</button>
         </div>
     </main>
@@ -49,18 +50,8 @@
                         <th class="px-4 py-2">Market Cap</th>
                     </tr>
                 </thead>
-                <tbody class="text-white">
-                    <!-- Example Row -->
-                    <tr class="bg-purple-700 hover:bg-purple-800">
-                        <td class="px-4 py-2">1</td>
-                        <td class="px-4 py-2 flex items-center">
-                            <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin" class="w-6 h-6 mr-2"> 
-                            Bitcoin : btc
-                        </td>
-                        <td class="px-4 py-2">$103,350</td>
-                        <td class="px-4 py-2 text-green-500">596</td>
-                        <td class="px-4 py-2">$204,098,574,3132</td>
-                    </tr>
+                <tbody id="tbody" class="text-white">
+                    <!-- Data rows will be appended here -->
                 </tbody>
             </table>
         </div>
