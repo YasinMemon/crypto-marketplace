@@ -35,9 +35,8 @@ const displayCoins = (coins) => {
     coins.forEach((coin, idx) => {
         const tr = document.createElement("tr");
         tr.classList.add("bg-purple-700", "hover:bg-purple-800");
-
         tr.innerHTML = `
-            <td class="px-4 py-2">${idx + 1}</td>
+        <td class="px-4 py-2">${idx + 1}</td>
             <td class="px-4 py-2 flex items-center">
                 <img src="${coin.image}" alt="${coin.name}" class="w-6 h-6 mr-2"> 
                 ${coin.name} : ${coin.symbol.toUpperCase()}
@@ -48,6 +47,9 @@ const displayCoins = (coins) => {
             </td>
             <td class="px-4 py-2">$${coin.market_cap.toLocaleString()}</td>
         `;
+        tr.addEventListener('click', ()=>{
+            window.location.href = '/crypto/${coins.id}'
+        })
         tbody.appendChild(tr);
     });
 };
