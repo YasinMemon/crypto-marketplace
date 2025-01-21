@@ -9,6 +9,7 @@ Route::get('/', function () {
 
 Route::get('/registration', [UserController::class, 'registration'])->name('registration');
 Route::post('/registration', [UserController::class, 'store'])->name('registration.store');
+Route::view('/login','login')->name('login');
 
 Route::get('/crypto/{id}', function () {
     return view('/crypto');

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
+    <title>Login form</title>
     @vite('resources/css/app.css')
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
@@ -21,27 +21,9 @@
             </div>
         @endif
 
-        <!-- Error Messages -->
-        @if ($errors->any())
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded mb-4">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <!-- Registration Form -->
         <form action="{{ route('registration.store') }}" method="POST" class="space-y-6">
             @csrf
-
-            <!-- Name Input -->
-            <div>
-                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                <input type="text" id="name" name="name" required
-                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
-            </div>
 
             <!-- Email Input -->
             <div>
@@ -61,15 +43,15 @@
             <div>
                 <button type="submit"
                     class="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium px-4 py-2 rounded-lg shadow-md hover:from-blue-600 hover:to-purple-600 transition duration-300 ease-in-out">
-                    Register
+                    Login
                 </button>
             </div>
         </form>
 
         <!-- Footer Text -->
         <p class="text-sm text-gray-600 mt-4 text-center">
-            Already have an account?
-            <a href="{{ route('login') }}" class="text-blue-500 hover:underline">Log in</a>
+            New here
+            <a href="registration" class="text-blue-500 hover:underline">Register</a>
         </p>
     </div>
 
