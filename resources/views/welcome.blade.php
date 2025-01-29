@@ -22,7 +22,7 @@
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
             </select>
-            <a href="#" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded">Sign Up</a>
+            <a href="/login" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded">Sign Up</a>
         </div>
     </header>
 
