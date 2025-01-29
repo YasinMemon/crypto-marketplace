@@ -38,8 +38,8 @@
     </main>
 
     <!-- Crypto Table -->
-    <section class="mt-16 px-4">
-        <div class="overflow-x-auto">
+    <section class="mt-16 px-14 rounded-xl">
+        <div class="overflow-x-auto rounded-xl ">
             <table class="w-full text-left border-collapse">
                 <thead class="bg-purple-800 text-indigo-400">
                     <tr>

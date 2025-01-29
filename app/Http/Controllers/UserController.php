@@ -37,7 +37,7 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect()->route('/');
+            return redirect()->intended('/');
         }
 
         return back()->withErrors([

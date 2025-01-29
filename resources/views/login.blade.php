@@ -7,60 +7,22 @@
     @vite('resources/css/app.css')
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
-    <style>
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in {
-            animation: fade-in 1s ease-in-out;
-        }
-
-        @keyframes slide-in {
-            from {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .animate-slide-in {
-            animation: slide-in 1s ease-in-out;
-        }
-    </style>
 </head>
 <body class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 min-h-screen flex items-center justify-center p-4">
     <!-- Card Container -->
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md animate-fade-in">
         <!-- Title -->
-        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center animate-slide-in">Login</h1>
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Login</h1>
 
         <!-- Success Message -->
         @if(session('success'))
-            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded mb-4 animate-slide-in">
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded mb-4">
                 {{ session('success') }}
             </div>
         @endif
 
-        <!-- Error Message -->
-        @if(session('error'))
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded mb-4 animate-slide-in">
-                {{ session('error') }}
-            </div>
-        @endif
-
         <!-- Login Form -->
-        <form action="{{ route('login') }}" method="POST" class="space-y-6 animate-slide-in">
+        <form action="{{ route('login') }}" method="POST" class="space-y-6">
             @csrf
 
             <!-- Email Input -->
@@ -87,10 +49,28 @@
         </form>
 
         <!-- Footer Text -->
-        <p class="text-sm text-gray-600 mt-4 text-center animate-slide-in">
+        <p class="text-sm text-gray-600 mt-4 text-center">
             New here?
             <a href="{{ route('registration') }}" class="text-blue-500 hover:underline">Register</a>
         </p>
     </div>
+
+    <!-- Animation Styles -->
+    <style>
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 1s ease-in-out;
+        }
+    </style>
 </body>
 </html>
