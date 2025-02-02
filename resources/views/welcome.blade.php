@@ -33,9 +33,9 @@
     <header class="flex justify-between items-center px-6 py-4 bg-opacity-30 backdrop-blur-lg border-b border-gray-700 fixed w-full top-0 z-50 shadow-lg">
         <div class="text-3xl font-extrabold tracking-wide gradient-text">CryptoPlace</div>
         <nav class="flex space-x-6">
-            <a href="#" class="hover:text-indigo-300 transition-all duration-300">Home</a>
-            <a href="#" class="hover:text-indigo-300 transition-all duration-300">Futures</a>
-            <a href="#" class="hover:text-indigo-300 transition-all duration-300">Blog</a>
+            <!-- <a href="#" class="hover:text-indigo-300 transition-all duration-300">Home</a>
+            <a href="#" class="hover:text-indigo-300 transition-all duration-300">Futures</a> -->
+            <a href="/adminLogin" class="hover:text-indigo-300 bg-orange-500 px-6 py-2 rounded-xl transition-all duration-300">Admin</a>
         </nav>
         <div class="flex items-center space-x-4">
             <select class="bg-transparent border border-indigo-400 text-sm px-3 py-1 rounded-lg outline-none">
