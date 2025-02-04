@@ -35,14 +35,21 @@
         <nav class="flex space-x-6">
             <!-- <a href="#" class="hover:text-indigo-300 transition-all duration-300">Home</a>
             <a href="#" class="hover:text-indigo-300 transition-all duration-300">Futures</a> -->
-            <a href="/adminLogin" class="hover:text-indigo-300 bg-orange-500 px-6 py-2 rounded-xl transition-all duration-300">Admin</a>
         </nav>
         <div class="flex items-center space-x-4">
-            <select class="bg-transparent border border-indigo-400 text-sm px-3 py-1 rounded-lg outline-none">
+            <a href="/admin" class="hover:text-indigo-300 bg-orange-500 px-6 py-2 rounded-xl transition-all duration-300">Admin</a>
+            <!-- <select class="bg-transparent border border-indigo-400 text-sm px-3 py-1 rounded-lg outline-none">
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
-            </select>
-            <a href="/login" class="px-5 py-2 bg-indigo-500 hover:bg-indigo-400 transition-all duration-300 text-white rounded-lg font-semibold shadow-md">Sign Up</a>
+            </select> -->
+            @if (Auth::check())
+                <form action="{{ route('logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="px-5 py-2 bg-red-500 hover:bg-red-400 transition-all duration-300 text-white rounded-lg font-semibold shadow-md">Logout</button>
+                </form>
+            @else
+                <a href="/login" class="px-5 py-2 bg-indigo-500 hover:bg-indigo-400 transition-all duration-300 text-white rounded-lg font-semibold shadow-md">Login</a>
+            @endif
         </div>
     </header>
 
@@ -73,8 +80,8 @@
                 <tbody id="tbody" class="text-white">
                     <!-- Loading Indicator (Initially visible) -->
                     <tr id="loadingRow" class="text-center">
-                        <td colspan="5" class="py-10">
-                            <div class="loading-spinner mx-auto"></div>
+                        <td colspan="5" class="py-10 ">
+                            <div class="loading-spinner mx-auto cursor-pointer"></div>
                         </td>
                     </tr>
                     <!-- Data rows will be dynamically added here -->

@@ -1,47 +1,34 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\User;
 
 class AdminController extends Controller
 {
-    public function adminLogin() 
-    {
-        return view('adminLogin');    
-    }
+    // ...existing code...
 
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
-        ]);
-    }
-
-    public function authenticate(Request $request)
-    {
-        $email = $request->input('email');
-        $password = $request->input('password');
-
-        if ($email === 'johndoe2007@gmail.com' && $password === 'iamadmin') {
-            return redirect('/admin')->with('success', 'Login successful!');
-        } else {
-            return redirect('/adminLogin')->with('error', 'Invalid credentials.');
-        }
-    }
-
-    public function index()
-    {
+    public function userManagement() {
         $users = User::all();
-        return view('admin', ['users' => $users]);
+        return view('admin.user-management', compact('users'));
     }
 
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect()->route('admin.index')->with('success', 'User deleted successfully.');
+    public function deleteUser($id) {
+        User::find($id)->delete();
+        return redirect()->route('admin.user-management')->with('success', 'User deleted successfully');
     }
+
+    public function orders()
+    {
+        // Logic to fetch and display orders
+        return view('admin.orders');
+    }
+
+    public function reports()
+    {
+        // Logic to fetch and display reports
+        return view('admin.reports');
+    }
+
+    // ...existing code...
 }
