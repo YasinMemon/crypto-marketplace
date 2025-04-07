@@ -16,7 +16,12 @@
                 {{ session('error') }}
             </div>
         @endif
-        <form  method="POST" class="space-y-6">
+        @if(session('success'))
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+        <form action="{{ route('adminLogin.post') }}" method="POST" class="space-y-6">
             @csrf
             <div>
                 <label for="username" class="block text-sm font-medium text-gray-700">Username</label>

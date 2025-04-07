@@ -37,7 +37,7 @@
             <a href="#" class="hover:text-indigo-300 transition-all duration-300">Futures</a> -->
         </nav>
         <div class="flex items-center space-x-4">
-            <a href="/admin" class="hover:text-indigo-300 bg-orange-500 px-6 py-2 rounded-xl transition-all duration-300">Admin</a>
+            <a href="{{ route('adminLogin') }}" class="hover:text-indigo-300 bg-orange-500 px-6 py-2 rounded-xl transition-all duration-300">Admin</a>
             <!-- <select class="bg-transparent border border-indigo-400 text-sm px-3 py-1 rounded-lg outline-none">
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
@@ -92,7 +92,7 @@
 
     <!-- Footer -->
     <footer class="mt-16 py-6 text-center text-gray-400 text-lg bg-opacity-30 backdrop-blur-lg border-t border-gray-700">
-        &copy; 2025 CryptoPlace | All Rights Reserved
+        &copy; 2025 CryptoPlace | All Rights Reserved by @Yasin Memon
     </footer>
 
     <script>

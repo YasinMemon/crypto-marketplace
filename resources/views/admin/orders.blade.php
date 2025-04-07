@@ -25,18 +25,56 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for ($i = 1; $i <= 20; $i++)
-                    <tr>
-                        <td class="border-b p-4">{{ $i }}</td>
-                        <td class="border-b p-4">Customer {{ $i }}</td>
-                        <td class="border-b p-4">${{ rand(100, 10000) }}</td>
-                        <td class="border-b p-4">{{ ['Pending', 'Approved', 'Rejected'][rand(0, 2)] }}</td>
-                        <td class="border-b p-4">
-                            <button class="bg-green-500 px-4 py-2 rounded text-white transition-all duration-300 hover:bg-green-400">Approve</button>
-                            <button class="bg-red-500 px-4 py-2 rounded text-white transition-all duration-300 hover:bg-red-400">Reject</button>
-                        </td>
-                    </tr>
-                    @endfor
+                    @forelse ($orders as $order)
+                        <tr>
+                            <td class="border-b p-4">{{ $order['id'] }}</td>
+                            <td class="border-b p-4">{{ $order['customer'] }}</td> <!-- Proper customer name -->
+                            <td class="border-b p-4">
+                                <!-- Debug information -->
+                                @if(isset($order['crypto']))
+                                    Crypto: {{ $order['crypto'] }} <br>
+                                @endif
+                                
+                                <!-- Display amount properly - include all possible fields -->
+                                ${{ 
+                                    isset($order['amount']) && is_numeric($order['amount']) ? 
+                                        number_format($order['amount'], 2) : 
+                                        (isset($order['total_price']) && is_numeric($order['total_price']) ? 
+                                            number_format($order['total_price'], 2) : '0.00') 
+                                }}
+                                
+                                <!-- Show all available keys for debugging -->
+                                <small class="text-gray-400">
+                                    <br>Available keys: {{ implode(', ', array_keys($order)) }}
+                                </small>
+                            </td>
+                            <td class="border-b p-4">{{ $order['status'] }}</td> <!-- Correct status display -->
+                            <td class="border-b p-4">
+                                @if ($order['status'] === 'Pending')
+                                    <form action="{{ route('admin.orders.approve', $order['id']) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" 
+                                            class="bg-green-500 px-4 py-2 rounded text-white transition-all duration-300 hover:bg-green-400">
+                                            Approve
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('admin.orders.reject', $order['id']) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" 
+                                            class="bg-red-500 px-4 py-2 rounded text-white transition-all duration-300 hover:bg-red-400">
+                                            Reject
+                                        </button>
+                                    </form>
+                                @else
+                                    <span class="text-gray-400 italic">{{ $order['status'] === 'Approved' ? 'Order Approved' : 'Order Rejected' }}</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center p-4 text-gray-300">No orders found.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

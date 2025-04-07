@@ -1,3 +1,9 @@
+<?php
+if (!session('admin_logged_in')) {
+    header('Location: /adminLogin');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +21,7 @@
 <body class="bg-gradient-to-br from-gray-900 via-purple-900 to-black text-white min-h-screen flex flex-col">
     <header class="bg-gray-800 text-white p-4 flex justify-between items-center shadow-lg">
         <h1 class="text-3xl font-bold">Admin Panel</h1>
-        <form action="" method="POST">
+        <form action="{{ route('admin.logout') }}" method="POST">
             @csrf
             <button type="submit" class="bg-red-500 px-4 py-2 rounded-lg transition-all duration-300 hover:bg-red-400">Logout</button>
         </form>

@@ -47,9 +47,9 @@ const displayCoins = (coins) => {
             </td>
             <td class="px-4 py-2">$${coin.market_cap.toLocaleString()}</td>
         `;
-        tr.addEventListener('click', ()=>{
-            window.location.href = '/crypto/${coins.id}'
-        })
+        tr.addEventListener('click', () => {
+            window.location.href = `/crypto/${coin.id}`; // Use the coin's ID dynamically
+        });
         tbody.appendChild(tr);
     });
 };

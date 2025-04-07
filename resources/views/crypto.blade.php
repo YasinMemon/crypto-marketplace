@@ -17,7 +17,7 @@
             <a href="#" class="hover:text-indigo-300 transition-all duration-300">Futures</a> -->
         </nav>
         <div class="flex items-center space-x-4">
-            <a href="/admin" class="hover:text-indigo-300 bg-orange-500 px-6 py-2 rounded-xl transition-all duration-300">Admin</a>
+            <a href="{{ route('adminLogin') }}" class="hover:text-indigo-300 bg-orange-500 px-6 py-2 rounded-xl transition-all duration-300">Admin</a>
             <!-- <select class="bg-transparent border border-indigo-400 text-sm px-3 py-1 rounded-lg outline-none">
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
@@ -41,6 +41,9 @@
             <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin Logo" class="w-24 h-24 mx-auto drop-shadow-lg animate-pulse">
             <h1 class="text-5xl font-bold mt-4 tracking-wide text-indigo-300">Bitcoin (BTC)</h1>
             <p class="text-2xl font-semibold mt-2 text-green-400 animate-pulse">Current Price: <span id="btc-price">$--</span></p>
+            <button id="buy-now-btn" class="mt-4 px-6 py-2 bg-green-500 hover:bg-green-400 transition-all duration-300 text-white rounded-lg font-semibold shadow-md">
+                Buy Now
+            </button>
         </div>
 
         <!-- Chart Section -->
@@ -74,6 +77,29 @@
                     <td class="p-3 text-right text-red-400" id="btc-low">$--</td>
                 </tr>
             </table>
+        </div>
+
+        <!-- Order Form -->
+        <div id="order-form" class="mt-8 w-11/12 md:w-2/3 bg-gray-900 bg-opacity-40 backdrop-blur-lg border border-gray-700 shadow-xl rounded-xl p-6 hidden">
+            <h2 class="text-2xl font-semibold text-center text-indigo-300 mb-4">Place an Order</h2>
+            <form action="{{ route('place-order') }}" method="POST" class="space-y-4">
+                @csrf
+                <input type="hidden" id="crypto" name="crypto" value="bitcoin">
+                <input type="hidden" id="total-price-input" name="total_price" value="0"> <!-- Hidden input for total price -->
+                <div>
+                    <label for="quantity" class="block text-sm font-medium text-gray-300">Quantity</label>
+                    <input type="number" id="quantity" name="quantity" min="1" required
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-300">Price per Coin: <span id="price-per-coin">$--</span></p>
+                    <p class="text-sm font-medium text-gray-300">Total Price: <span id="total-price">$--</span></p>
+                </div>
+                <button type="submit"
+                    class="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium px-4 py-2 rounded-lg shadow-md hover:from-blue-600 hover:to-purple-600 transition duration-300 ease-in-out">
+                    Place Order
+                </button>
+            </form>
         </div>
     </div>
 
@@ -120,6 +146,76 @@
             });
         }
         fetchChartData();
+
+        // Show order form when "Buy Now" button is clicked
+        document.getElementById("buy-now-btn").addEventListener("click", () => {
+            document.getElementById("order-form").classList.remove("hidden");
+            document.getElementById("order-form").scrollIntoView({ behavior: "smooth" });
+
+            // Fetch and display price per coin
+            fetchCryptoData().then(() => {
+                const pricePerCoin = parseFloat(document.getElementById("btc-price").innerText.replace('$', '').replace(',', ''));
+                document.getElementById("price-per-coin").innerText = `$${pricePerCoin.toLocaleString()}`;
+            });
+        });
+
+        // Update total price dynamically based on quantity
+        document.getElementById("quantity").addEventListener("input", () => {
+            const quantity = parseFloat(document.getElementById("quantity").value) || 0;
+            const pricePerCoin = parseFloat(document.getElementById("btc-price").innerText.replace('$', '').replace(',', ''));
+            const totalPrice = quantity * pricePerCoin;
+
+            // Update total price display and hidden input
+            document.getElementById("total-price").innerText = `$${totalPrice.toLocaleString()}`;
+            document.getElementById("total-price-input").value = totalPrice.toFixed(2); // Ensure this value is sent to the backend
+        });
+
+    </script>
+    <tbody id="tbody" class="text-white">
+        <!-- Loading Indicator (Initially visible) -->
+        <tr id="loadingRow" class="text-center">
+            <td colspan="5" class="py-10 ">
+                <div class="loading-spinner mx-auto cursor-pointer"></div>
+            </td>
+        </tr>
+        <!-- Data rows will be dynamically added here -->
+    </tbody>
+    <script>
+        // Simulating data fetch for demonstration
+        window.onload = () => {
+            setTimeout(() => {
+                const loadingRow = document.getElementById("loadingRow");
+                loadingRow.style.display = "none"; // Hide loading spinner
+
+                // Insert crypto data rows
+                const tbody = document.getElementById("tbody");
+                tbody.innerHTML = `
+                    <tr class="hover:bg-opacity-50 hover:bg-blue-600 cursor-pointer" onclick="redirectToCrypto('bitcoin')">
+                        <td class="px-3 py-3 text-xs sm:text-sm">1</td>
+                        <td class="px-3 py-3 text-xs sm:text-sm">Bitcoin</td>
+                        <td class="px-3 py-3 text-xs sm:text-sm">$45,000</td>
+                        <td class="px-3 py-3 text-xs sm:text-sm text-green-400">+5%</td>
+                        <td class="px-3 py-3 text-xs sm:text-sm">$800B</td>
+                    </tr>
+                    <tr class="hover:bg-opacity-50 hover:bg-blue-600 cursor-pointer" onclick="redirectToCrypto('ethereum')">
+                        <td class="px-3 py-3 text-xs sm:text-sm">2</td>
+                        <td class="px-3 py-3 text-xs sm:text-sm">Ethereum</td>
+                        <td class="px-3 py-3 text-xs sm:text-sm">$3,000</td>
+                        <td class="px-3 py-3 text-xs sm:text-sm text-red-400">-2%</td>
+                        <td class="px-3 py-3 text-xs sm:text-sm">$350B</td>
+                    </tr>
+                `;
+            }, 2000); // Simulated 2-second delay for data fetch
+        };
+
+        function redirectToCrypto(coin) {
+            const isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
+            if (isLoggedIn) {
+                window.location.href = `/crypto/${coin}`;
+            } else {
+                window.location.href = '/login';
+            }
+        }
     </script>
 </body>
 </html>

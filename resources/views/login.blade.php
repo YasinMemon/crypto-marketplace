@@ -21,6 +21,13 @@
             </div>
         @endif
 
+        <!-- Error Message -->
+        @if(session('error'))
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded mb-4">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <!-- Login Form -->
         <form action="{{ route('login') }}" method="POST" class="space-y-6">
             @csrf
