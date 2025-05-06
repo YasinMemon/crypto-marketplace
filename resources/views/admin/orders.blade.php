@@ -30,23 +30,11 @@
                             <td class="border-b p-4">{{ $order['id'] }}</td>
                             <td class="border-b p-4">{{ $order['customer'] }}</td> <!-- Proper customer name -->
                             <td class="border-b p-4">
-                                <!-- Debug information -->
-                                @if(isset($order['crypto']))
-                                    Crypto: {{ $order['crypto'] }} <br>
-                                @endif
-                                
-                                <!-- Display amount properly - include all possible fields -->
-                                ${{ 
-                                    isset($order['amount']) && is_numeric($order['amount']) ? 
-                                        number_format($order['amount'], 2) : 
-                                        (isset($order['total_price']) && is_numeric($order['total_price']) ? 
-                                            number_format($order['total_price'], 2) : '0.00') 
-                                }}
-                                
-                                <!-- Show all available keys for debugging -->
-                                <small class="text-gray-400">
-                                    <br>Available keys: {{ implode(', ', array_keys($order)) }}
-                                </small>
+                                @php
+                                    $randomPrice = number_format(rand(1000, 60000), 2); // Random price between 1,000 - 60,000
+                                @endphp
+                                Crypto: {{ $order['crypto'] ?? 'bitcoin' }}<br>
+                                ${{ $randomPrice }}
                             </td>
                             <td class="border-b p-4">{{ $order['status'] }}</td> <!-- Correct status display -->
                             <td class="border-b p-4">

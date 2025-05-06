@@ -89,7 +89,7 @@
                 <div>
                     <label for="quantity" class="block text-sm font-medium text-gray-300">Quantity</label>
                     <input type="number" id="quantity" name="quantity" min="1" required
-                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 text-black">
                 </div>
                 <div>
                     <p class="text-sm font-medium text-gray-300">Price per Coin: <span id="price-per-coin">$--</span></p>
